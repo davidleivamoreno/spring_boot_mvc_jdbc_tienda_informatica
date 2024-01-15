@@ -29,7 +29,7 @@ public class ComercialController {
 
     }
 
-    @GetMapping("/fabricantes/{id}")
+    @GetMapping("/comerciales/{id}")
     public String detalle(Model model, @PathVariable Integer id ) {
 
         Comercial comercial = comercialService.one(id);
@@ -39,50 +39,49 @@ public class ComercialController {
 
     }
 
-    @GetMapping("/fabricantes/crear")
+    @GetMapping("/comerciales/crear")
     public String crear(Model model) {
 
-        Fabricante fabricante = new Fabricante();
-        model.addAttribute("fabricante", fabricante);
+        Comercial comercial = new Comercial();
+        model.addAttribute("comercial", comercial);
 
-        return "crear-fabricante";
-
-    }
-
-    @PostMapping("/fabricantes/crear")
-    public RedirectView submitCrear(@ModelAttribute("fabricante") Fabricante fabricante) {
-
-        fabricanteService.newFabricante(fabricante);
-
-        return new RedirectView("/fabricantes") ;
+        return "crear-comercial";
 
     }
 
-    @GetMapping("/fabricantes/editar/{id}")
+    @PostMapping("/comerciales/crear")
+    public RedirectView submitCrear(@ModelAttribute("comercial") Comercial comercial) {
+
+        comercialService.newComercial(comercial);
+        return new RedirectView("/comerciales") ;
+
+    }
+
+    @GetMapping("/comerciales/editar/{id}")
     public String editar(Model model, @PathVariable Integer id) {
 
-        Fabricante fabricante = fabricanteService.one(id);
-        model.addAttribute("fabricante", fabricante);
+        Comercial comercial = comercialService.one(id);
+        model.addAttribute("comercial", comercial);
 
-        return "editar-fabricante";
+        return "editar-comercial";
 
     }
 
 
-    @PostMapping("/fabricantes/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("fabricante") Fabricante fabricante) {
+    @PostMapping("/comerciales/editar/{id}")
+    public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
 
-        fabricanteService.replaceFabricante(fabricante);
+        comercialService.replaceComercial(comercial);
 
         return new RedirectView("/fabricantes");
     }
 
-    @PostMapping("/fabricantes/borrar/{id}")
+    @PostMapping("/comerciales/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
 
-        fabricanteService.deleteFabricante(id);
+        comercialService.deleteComercial(id);
 
-        return new RedirectView("/fabricantes");
+        return new RedirectView("/comerciales");
     }
 
 }

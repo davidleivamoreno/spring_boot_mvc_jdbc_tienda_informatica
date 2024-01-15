@@ -22,9 +22,9 @@ public class ComercialService {
     }
 
     public Comercial one(Integer id) {
-        Optional<Comercial> optFab = comercialDAO.find(id);
-        if (optFab.isPresent())
-            return optFab.get();
+        Optional<Comercial> optCom = comercialDAO.find(id);
+        if (optCom.isPresent())
+            return optCom.get();
         else
             return null;
     }
