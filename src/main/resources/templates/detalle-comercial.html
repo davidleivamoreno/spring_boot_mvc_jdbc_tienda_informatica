@@ -11,6 +11,9 @@
         }
 
     </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -24,7 +27,7 @@
             <div style="position: absolute; left: 39%; top : 39%;">
 
                 <form action="/comerciales" >
-                    <input type="submit" value="Volver" />
+                    <input type="submit" th:value="#{volver}" />
                 </form>
             </div>
 
@@ -37,7 +40,7 @@
 
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%">
-            <label>Código</label>
+            <label th:text="#{Codigo}"></label>
         </div>
         <div style="float: none;width: auto;overflow: hidden;">
             <input th:value="${comercial.id}" value="Código" readonly="readonly"/>
@@ -45,7 +48,7 @@
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%">
-            <label>Nombre</label>
+            <label th:text="#{Nombre}"></label>
         </div>
         <div style="float: none;width: auto;overflow: hidden;">
             <input th:value="${comercial.nombre}" value="Comercial" readonly="readonly"/>
@@ -53,7 +56,7 @@
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%">
-            <label>Apellido1</label>
+            <label th:text="#{Apellido}"></label>
         </div>
         <div style="float: none;width: auto;overflow: hidden;">
             <input th:value="${comercial.apellido1}" value="Comercial" readonly="readonly"/>
@@ -61,7 +64,7 @@
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%">
-            <label>Apellido2</label>
+            <label th:text="#{Apellido2}"></label>
         </div>
         <div style="float: none;width: auto;overflow: hidden;">
             <input th:value="${comercial.apellido2}" value="Comercial" readonly="readonly"/>
@@ -69,12 +72,43 @@
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%">
-            <label>Comision</label>
+            <label th:text="#{Comision}"></label>
         </div>
         <div style="float: none;width: auto;overflow: hidden;">
             <input th:value="${comercial.comision}" value="Comercial" readonly="readonly"/>
         </div>
     </div>
+    <div style="float: left;width: 50%">
+        <label th:text="#{Media}"></label>
+    </div>
+        <div style="display:inline;float: none;width: auto;overflow: hidden;">
+            <!-- Llama al método 'media' del servicio 'ComercialService' y muestra el resultado -->
+            <span th:text="${@comercialService.media(comercial.id)}"></span>
+        </div>
+    <div style="float: left;width: 50%">
+        <label th:text="#{Sumatorio}"></label>
+    </div>
+    <div style="float: none;width: auto;overflow: hidden;">
+        <!-- Llama al método 'media' del servicio 'ComercialService' y muestra el resultado -->
+        <span th:text="${@comercialService.sumatorioPedido(comercial.id)}"></span>
+    </div>
+    </div>
+
+
+    <div style="display:flex;flex-direction: row"> <h2 th:text="#{Codigo}" style="margin: 10px"></h2><h2 th:text="#{Total}" style="margin: 10px"></h2><h2 th:text="#{Clientes}" style="margin: 10px"></h2><h2 th:text="#{Comercial}" style="margin: 10px"></h2> </div>
+    <div style="display: grid;grid-template-columns: repeat(4,1fr)" th:id="${pedido.id}" class="row mt-2 body" th:each="pedido : ${listapedidos}"th:class="${pedido.coloreado ? 'resaltado-maximo':''}" >
+
+        <div  th:text="${pedido.getId()}"></div>
+        <div  th:text="${pedido.getTotal()}"></div>
+        <a class="btn-success" style="text-decoration: none"  th:text="${pedido.getCliente().getNombre()}"></a>
+        <div  th:text="${pedido.getComercial().getNombre()}"></div>
+
+    </div>
+    <h2>Clientes ordenados por cuantía total:</h2>
+    <div th:each="cliente : ${clienteList}">
+        <p th:text="${cliente.getNombre()} + ' ' + ${cliente.getApellido1()} "></p>
+    </div>
+
 
 </div>
 

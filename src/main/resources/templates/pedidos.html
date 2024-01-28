@@ -2,30 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Comercial</title>
+    <title>Clientes</title>
     <style>
         .clearfix::after {
             content: "";
             display: block;
             clear: both;
         }
+
     </style>
     <link rel="stylesheet" href="/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 <body>
 
-<div id="contenedora" style="float:none; margin: 0 auto;width: 900px;">
+<div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
     <div class="clearfix">
         <div style="float: left; width: 50%">
-            <h1 th:text="#{Comercial}"></h1>
+            <h1 th:text="#{Pedido}"></h1>
         </div>
         <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
-            <div style="position: absolute; left: 39%; top: 39%;">
-                <form action="/comerciales/crear">
+
+            <div style="position: absolute; left: 39%; top : 39%;">
+
+                <form action="/pedidos/crear">
                     <input class="boton-crear" type="submit" th:value="#{Crear}">
                 </form>
             </div>
+
         </div>
     </div>
     <div class="clearfix">
@@ -33,34 +38,35 @@
     </div>
     <div class="clearfix">
         <div th:text="#{Codigo}" style="float: left;width: 33%"></div>
+        <div style="float: left;width: 33%" th:text="#{pedido.total}"></div>
     </div>
     <div class="clearfix">
         <hr/>
     </div>
 
-    <div th:each="comercial : ${listaComerciales}" style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 33%" th:text="${comercial.id}">Código</div>
-        <div style="float: left;width: 33%" th:text="${comercial.nombre}">Nombre</div>
+    <div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
+        <div style="float: left;width: 33%" th:text="${pedido.id}">Código</div>
+        <div style="float: left;width: 33%" th:text="${pedido.total}">Total</div>
 
         <div style="float: none;width: auto;overflow: hidden;">
-            <form th:action="@{/comerciales/__${comercial.getId()}__}" style="display: inline;">
+            <form th:action="@{/pedidos/__${pedido.getId()}__}" style="display: inline;">
                 <input class="boton-detalle" type="submit" th:value="#{Details}" />
             </form>
-            <form th:action="@{/comerciales/editar/__${comercial.id}__} " style="display: inline;">
+            <form th:action="@{/pedidos/editar/__${pedido.id}__} " style="display: inline;">
                 <input class="boton-editar" type="submit" th:value="#{Edit}" />
             </form>
-            <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;" onsubmit="return confirmarBorrado()">
+            <form th:action="@{/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;" onsubmit="confirmarBorrado()">
                 <input class="boton-borrar" type="submit" th:value="#{Delete}" />
             </form>
         </div>
-    </div>
 
+    </div>
     <script>
         function confirmarBorrado() {
-            return confirm("¿Seguro que quieres borrar a este cliente?");
+            return confirm("¿Seguro que quieres borrar a este pedido?");
         }
     </script>
-
 </div>
+</body>
 </body>
 </html>
