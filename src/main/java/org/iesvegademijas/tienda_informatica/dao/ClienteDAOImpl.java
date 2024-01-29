@@ -106,7 +106,7 @@ public class ClienteDAOImpl implements  ClienteDAO {
 
     @Override
     public void update(Cliente cliente) {
-        int rows = jdbcTemplate.update("UPDATE cliente SET nombre = ?  WHERE id = ?", cliente.getNombre(), cliente.getId());
+        int rows = jdbcTemplate.update("UPDATE cliente SET nombre = ?,apellido1=?,apellido2=?,ciudad=?,categoría=?  WHERE id = ?", cliente.getNombre(),cliente.getApellido1(),cliente.getApellido2(),cliente.getCiudad(),cliente.getCategoría(), cliente.getId());
         if (rows == 0) System.out.println("Update de cliente con 0 registros actualizados.");
 
     }
@@ -119,12 +119,12 @@ public class ClienteDAOImpl implements  ClienteDAO {
 
     }
     @Override
-    public int calcularConteoPedidosUltimoTrimestre(Cliente cliente) {
+    public int calcularConteoPedidosUltimoTrimestre(Cliente  cliente) {
         // Obtener la fecha de hace tres meses
         LocalDate fechaInicio = LocalDate.now().minusMonths(3);
 
         // Consulta SQL para contar los pedidos del último trimestre para el cliente dado
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= ?";
+        String sql = "SELECT COUNT(*) FROM pedido JOIN ventas.comercial c on c.id = pedido.id_comercial WHERE id_cliente = ? AND fecha >= ?";
 
         // Ejecutar la consulta
         return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
@@ -136,7 +136,7 @@ public class ClienteDAOImpl implements  ClienteDAO {
         LocalDate fechaInicio = LocalDate.now().minusMonths(6);
 
         // Consulta SQL para contar los pedidos del último semestre para el cliente dado
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= ?";
+        String sql = "SELECT COUNT(*) FROM pedido JOIN ventas.comercial c on c.id = pedido.id_comercial WHERE id_cliente = ? AND fecha >= ?";
 
         // Ejecutar la consulta
         return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
@@ -148,10 +148,10 @@ public class ClienteDAOImpl implements  ClienteDAO {
         LocalDate fechaInicio = LocalDate.now().minusYears(1);
 
         // Consulta SQL para contar los pedidos del último año para el cliente dado
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= ?";
+        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= DATE_SUB(NOW(), INTERVAL 5 YEAR);";
 
         // Ejecutar la consulta
-        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
+        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
 
     @Override
@@ -160,9 +160,9 @@ public class ClienteDAOImpl implements  ClienteDAO {
         LocalDate fechaInicio = LocalDate.now().minusYears(5);
 
         // Consulta SQL para contar los pedidos del último lustro para el cliente dado
-        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= ?";
+        String sql = "SELECT COUNT(*) FROM pedido WHERE id_cliente = ? AND fecha >= DATE_SUB(NOW(), INTERVAL 5 YEAR);";
 
         // Ejecutar la consulta
-        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
+        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
     }
 }

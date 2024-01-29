@@ -47,17 +47,17 @@ public class ClienteController {
         List<Comercial> comerciales = clienteService.listadoComerciales(id);
 
         // Mapear la lista de comerciales a una lista de ComercialDTO
-        double conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
+        int conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
 
         model.addAttribute("conteoPedidosUltimoTrimestre", conteotrimestre);
-        double conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
+        int conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
 
-        model.addAttribute("conteoPedidosUltimoAnio", conteoSemestre);
+        model.addAttribute("conteoPedidosUltimoSemestre", conteoSemestre);
 
-        double conteoAnio =clienteService.calcularConteoPedidosUltimoAnio(cliente);
+        int conteoAnio =clienteService.calcularConteoPedidosUltimoAnio(cliente);
 
         model.addAttribute("conteoPedidosUltimoAnio", conteoAnio);
-        double conteoLustro =clienteService.calcularConteoPedidosUltimoLustro(cliente);
+        int conteoLustro =clienteService.calcularConteoPedidosUltimoLustro(cliente);
 
         model.addAttribute("conteoPedidosUltimoLustro", conteoLustro);
 
@@ -87,7 +87,7 @@ public class ClienteController {
            return "crear-cliente";
        }
        clienteService.newCliente(cliente);
-        return "/clientes";
+        return "redirect:/clientes?newClienteID="+cliente.getId();
 
     }
 
@@ -106,13 +106,13 @@ public class ClienteController {
     @PostMapping("/clientes/editar/{id}")
     public String submitEditarCliente(@ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult,Model model) {
 
-        clienteService.replaceCliente(cliente);
+
         if(bindingResult.hasErrors()){
             model.addAttribute("cliente",cliente);
-            return "editar-cliente";
+            return "cliente-editar";
         }
         clienteService.replaceCliente(cliente);
-        return "/clientes";
+        return "redirect:/clientes?editClienteID="+cliente.getId();
 
     }
 

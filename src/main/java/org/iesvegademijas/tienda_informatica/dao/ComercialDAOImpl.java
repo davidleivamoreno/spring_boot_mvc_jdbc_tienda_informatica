@@ -108,7 +108,7 @@ public class ComercialDAOImpl  implements ComercialDAO{
 
     @Override
     public void update(Comercial comercial) {
-        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?  WHERE id = ?", comercial.getNombre(), comercial.getId());
+        int rows = jdbcTemplate.update("UPDATE comercial SET nombre = ?,apellido1=?,apellido2=?,comision=?  WHERE id = ?", comercial.getNombre(),comercial.getApellido1(),comercial.getApellido1(),comercial.getComision(), comercial.getId());
         if (rows == 0) System.out.println("Update de comercial con 0 registros actualizados.");
 
     }
