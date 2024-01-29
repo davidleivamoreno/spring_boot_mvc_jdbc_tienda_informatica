@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface DetalleClienteMapper {
 
-    @Mapping(target = "apellido1", source = "apellido1")
-    @Mapping(target = "apellido2", source = "apellido2")
+
     ClienteDTO clienteToClienteDTO(Cliente cliente);
     ComercialDTO comercialToComercialDTO(Comercial comercial);
     default List<ComercialDTO> mapComerciales(List<Comercial> comerciales) {
@@ -26,11 +25,5 @@ public interface DetalleClienteMapper {
                 .collect(Collectors.toList());
     }
 
-    default int calcularConteoPedidosUltimoTrimestre(Cliente cliente) {
-        // Aquí puedes realizar la lógica para calcular el conteo de pedidos del último trimestre
-        // Por simplicidad, se puede devolver cero
-        return 0;
-    }
 
-    // Agrega métodos adicionales de cálculo de conteo de pedidos para el último semestre, año, lustro, etc.
 }

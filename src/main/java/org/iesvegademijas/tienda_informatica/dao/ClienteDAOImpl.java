@@ -77,8 +77,7 @@ public class ClienteDAOImpl implements  ClienteDAO {
             FROM cliente cl
             left JOIN pedido p ON cl.id = p.id_cliente
             left JOIN comercial c ON p.id_comercial = c.id
-            WHERE cl.id = ?
-            GROUP BY c.id;
+            WHERE cl.id = ?    
         """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {

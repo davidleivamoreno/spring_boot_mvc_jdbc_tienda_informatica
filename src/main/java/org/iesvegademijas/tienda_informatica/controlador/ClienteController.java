@@ -47,7 +47,19 @@ public class ClienteController {
         List<Comercial> comerciales = clienteService.listadoComerciales(id);
 
         // Mapear la lista de comerciales a una lista de ComercialDTO
+        double conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
 
+        model.addAttribute("conteoPedidosUltimoTrimestre", conteotrimestre);
+        double conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
+
+        model.addAttribute("conteoPedidosUltimoAnio", conteoSemestre);
+
+        double conteoAnio =clienteService.calcularConteoPedidosUltimoAnio(cliente);
+
+        model.addAttribute("conteoPedidosUltimoAnio", conteoAnio);
+        double conteoLustro =clienteService.calcularConteoPedidosUltimoLustro(cliente);
+
+        model.addAttribute("conteoPedidosUltimoLustro", conteoLustro);
 
         // Agregar la lista de comerciales al modelo
         model.addAttribute("comerciales", comerciales);
@@ -74,7 +86,8 @@ public class ClienteController {
            model.addAttribute("cliente",cliente);
            return "crear-cliente";
        }
-        return "redirect:/clientes?newClienteID="+cliente.getId();
+       clienteService.newCliente(cliente);
+        return "/clientes";
 
     }
 
@@ -91,11 +104,16 @@ public class ClienteController {
 
 
     @PostMapping("/clientes/editar/{id}")
-    public RedirectView submitEditarCliente(@ModelAttribute("cliente") Cliente cliente) {
+    public String submitEditarCliente(@ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult,Model model) {
 
         clienteService.replaceCliente(cliente);
+        if(bindingResult.hasErrors()){
+            model.addAttribute("cliente",cliente);
+            return "editar-cliente";
+        }
+        clienteService.replaceCliente(cliente);
+        return "/clientes";
 
-        return new RedirectView("/clientes");
     }
 
     @PostMapping("/clientes/borrar/{id}")

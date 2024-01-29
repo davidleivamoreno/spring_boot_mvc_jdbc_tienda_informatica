@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.jetbrains.annotations.Range;
 
 import java.util.List;
@@ -17,22 +18,22 @@ categoria - con un rango de valores de 100 a 1000 extremos incluidos*/
 @AllArgsConstructor
 public class Cliente {
     private int id;
+
+
+    @Length(min=1,max=30,message="Es demasiado largo el nombre máximo 30 caracteres")
     @NotNull(message = "No puede ser nulo")
-    @NotBlank(message = "No has introducido nada en el campo nombre")
-    @Max(value=30,message="Es demasiado largo el nombre máximo 30 caracteres")
     private String nombre;
 
+
+
+    @Length(min=1,max=30,message="Es demasiado largo el nombre máximo 30 caracteres")
     @NotNull(message = "No puede ser nulo")
-    @NotBlank(message = "No has introducido nada en el campo apellido1")
-    @Max(value=30,message="Es demasiado largo el nombre máximo 30 caracteres")
     private String apellido1;
-    @NotNull(message = "No puede ser nulo")
-    @NotBlank(message = "No has introducido nada en el campo ciudad")
-    @Max(value=30,message="Es demasiado largo la ciudad máximo 30 caracteres")
     private String apellido2;
-    @Max(value=30,message="Es demasiado largo la ciudad máximo 30 caracteres")
-    @NotBlank(message = "No has introducido nada en el campo ciudad")
     @NotNull(message = "No puede ser nulo")
+    @Length(min=1,max=30,message="Es demasiado largo el nombre máximo 30 caracteres")
+
+
     private String ciudad;
     @DecimalMin(value="100.0", message = "{msg.valid.min}")
     @DecimalMax(value="1000.0", message = "{msg.valid.max}")
