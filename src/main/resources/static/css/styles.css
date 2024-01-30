@@ -1,0 +1,33 @@
+html {
+  background: white;
+}
+
+.boton-crear {
+  background: green;
+  color: white;
+}
+
+.boton-borrar {
+  background: red;
+  color: white;
+}
+
+.boton-editar {
+  background: violet;
+  color: red;
+}
+
+.resaltado-maximo {
+  background: green;
+}
+
+.resaltado-minimo {
+  background: red;
+}
+
+.boton-detalle {
+  background: aqua;
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */
