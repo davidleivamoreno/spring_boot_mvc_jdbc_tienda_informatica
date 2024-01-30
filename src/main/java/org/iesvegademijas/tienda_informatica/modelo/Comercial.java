@@ -1,14 +1,23 @@
 package org.iesvegademijas.tienda_informatica.modelo;
 
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+/*nombre - obligatorio, con una longitud máxima de 30
+apellido1- obligatorio, con una longitud máxima de 30
+apellido2 - opcional*/
 @Data
 @AllArgsConstructor
 public class Comercial {
     private int id;
+    @NotNull
+    @Length(min=1,max=30,message = "Demasiado grande o pequeño maximo 30 letras")
     private String nombre;
+    @NotNull
+    @Length(min=1,max=30,message = "Demasiado grande o pequeño maximo 30 letras")
     private String apellido1;
     private String apellido2;
     private float comision;

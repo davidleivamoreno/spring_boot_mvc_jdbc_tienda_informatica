@@ -1,5 +1,6 @@
 package org.iesvegademijas.tienda_informatica.controlador;
 
+import jakarta.validation.Valid;
 import org.iesvegademijas.tienda_informatica.modelo.Cliente;
 import org.iesvegademijas.tienda_informatica.modelo.Comercial;
 import org.iesvegademijas.tienda_informatica.modelo.Fabricante;
@@ -10,6 +11,7 @@ import org.iesvegademijas.tienda_informatica.servicio.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,10 +70,18 @@ public class ComercialController {
     }
 
     @PostMapping("/comerciales/crear")
-    public RedirectView submitCrear(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitCrear(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
 
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+
+            return "crear-comercial";
+        }
         comercialService.newComercial(comercial);
-        return new RedirectView("/comerciales") ;
+
+        return "redirect:/comerciales?newComercialId="+comercial.getId();
+
 
     }
 
@@ -87,11 +97,19 @@ public class ComercialController {
 
 
     @PostMapping("/comerciales/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitEditar(@Valid @ModelAttribute("comercial") Comercial comercial,BindingResult bindingresult,Model model) {
 
+        if(bindingresult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+
+            return "crear-comercial";
+        }
         comercialService.replaceComercial(comercial);
 
-        return new RedirectView("/comerciales");
+        return "redirect:/comerciales?editComercialId="+comercial.getId();
+
+
+
     }
 
     @PostMapping("/comerciales/borrar/{id}")

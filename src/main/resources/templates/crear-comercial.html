@@ -41,6 +41,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{nombre}" />
+                <ul class="text-danger " th:if="${#fields.hasErrors('nombre')}">
+                    <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" />
+                </ul>
             </div>
         </div>
         <div style="margin-top: 6px;" class="clearfix">
@@ -49,6 +52,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input th:field="*{apellido1}" />
+                <ul class="text-danger " th:if="${#fields.hasErrors('apellido1')}">
+                    <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" />
+                </ul>
             </div>
         </div>
         <div style="margin-top: 6px;" class="clearfix">
@@ -68,7 +74,7 @@
             </div>
 
 
-
+</div>
     </form>
 </div>
 
