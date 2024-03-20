@@ -126,8 +126,8 @@ public class ClienteDAOImpl implements  ClienteDAO {
         // Consulta SQL para contar los pedidos del último trimestre para el cliente dado
         String sql = "SELECT COUNT(*) FROM pedido JOIN ventas.comercial c on c.id = pedido.id_comercial WHERE id_cliente = ? AND fecha >= ?";
 
-        // Ejecutar la consulta
-        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechaInicio);
+        // Ejecutar la consultaI
+        return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId(), fechanicio);
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class ClienteService {
     @Autowired
-    private ClienteDAO clienteDAO;
+            private ClienteDAO clienteDAO;
     private ClienteService clienteService;
 
     public List<Cliente> listAll() {

@@ -54,7 +54,7 @@ public class ComercialController {
         Double sumatorio= comercialService.sumatorioPedido(id);
         model.addAttribute(sumatorio);
         List<Cliente> listadoClientes=comercialService.listaClienteCosto(id);
-        model.addAttribute(listadoClientes);
+        model.addAttribute("listadocliente",listadoClientes);
         return "detalle-comercial";
 
     }

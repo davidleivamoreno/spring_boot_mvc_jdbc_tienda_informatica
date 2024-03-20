@@ -106,7 +106,7 @@
     </div>
     <h2>Clientes ordenados por cuantía total:</h2>
     <div th:each="cliente : ${clienteList}">
-        <p th:text="${cliente.getNombre()} + ' ' + ${cliente.getApellido1()} "></p>
+        <p th:text="${cliente.getNombre()} + ' ' + ${cliente.getId()} "></p>
     </div>
 
 
